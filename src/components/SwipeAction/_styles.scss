@@ -1,0 +1,30 @@
+.slider-wrap{
+  position: relative;
+  display: inline-block;
+  overflow-x: hidden; // 左边滑动部分裁掉
+}
+
+.slider-content{
+  display: inline-block;
+  width: auto;
+  height: auto;
+  position: relative;
+  z-index: 20;
+  vertical-align: bottom; // 不设置这个的话，wrap会比content高一点，不知道是为什么
+}
+
+.slider-btn{
+  position: absolute;
+  right: 0;
+  width: 100px;
+  height: 100%;
+
+  display: inline-flex;
+  flex-direction: row;
+  
+  button{
+    flex: 1;
+    padding: 0;
+    border: none;
+  }
+}
