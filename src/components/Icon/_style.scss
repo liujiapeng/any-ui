@@ -1,0 +1,30 @@
+$iconPrefixCls: 'au-icon';
+$xxs: 12px;
+$xs: 15px;
+$sm: 18px;
+$md: 21px;
+$lg: 24px;
+.#{$iconPrefixCls} {
+	&-xxs {
+		width: $xxs;
+		height: $xxs;
+	}
+	&-xs {
+		width: $xs;
+		height: $xs;
+	}
+	&-sm {
+		width: $sm;
+		height: $sm;
+	}
+
+	&-md {
+		width: $md;
+		height: $md;
+	}
+
+	&-lg {
+		width: $lg;
+		height: $lg;
+	}
+}

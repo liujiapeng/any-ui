@@ -1,0 +1,18 @@
+$radioPrefixCls: 'au-radio';
+
+.#{$radioPrefixCls} {
+	&-item {
+		&:active {
+			opacity: 0.85;
+		}
+	}
+
+	&-check {
+		display: inline-block;
+		position: relative;
+		width: 15px;
+		height: 15px;
+		border-radius: 50%;
+		background-color: #2ac845;	
+	}
+}
