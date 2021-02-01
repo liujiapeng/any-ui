@@ -2,6 +2,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import List, { ListProps } from './List';
 import ListItem from './ListItem';
+import Icon from '../Icon'
 import '../../styles/index.scss';
 
 export default {
@@ -16,7 +17,7 @@ const Template: Story<ListProps> = (args) => (
       align="center"
       thumb="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061901.jpg"
       right={() => (
-        <img src="https://sf3-ttcdn-tos.pstatp.com/img/user-avatar/2a990c2e08b69efb8e4f25e8daa290fa~300x300.image" />
+        <Icon type="right"></Icon>
       )}
     >
       <div style={{ fontSize: '16px' }}>rose</div>
@@ -26,7 +27,7 @@ const Template: Story<ListProps> = (args) => (
       value={2}
       thumb="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061901.jpg"
       right={() => (
-        <img src="https://sf3-ttcdn-tos.pstatp.com/img/user-avatar/2a990c2e08b69efb8e4f25e8daa290fa~300x300.image" />
+        <Icon type="right"></Icon>
       )}
     >
       <div>list item 1</div>
