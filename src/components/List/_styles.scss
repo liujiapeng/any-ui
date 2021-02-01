@@ -3,6 +3,7 @@ $itemPrefixCls: 'au-list-item';
 
 /* list */
 .#{$listPrefixCls} {
+  background: #ffffff;
   &-header {
   }
   &-footer {
@@ -15,6 +16,7 @@ $itemPrefixCls: 'au-list-item';
 
 /* list-item */
 .#{$itemPrefixCls} {
+  background: #fff;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

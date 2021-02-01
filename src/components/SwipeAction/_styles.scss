@@ -6,8 +6,8 @@
 
 .slider-content{
   display: inline-block;
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
   position: relative;
   z-index: 20;
   vertical-align: bottom; // 不设置这个的话，wrap会比content高一点，不知道是为什么
