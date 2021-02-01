@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from 'react';
 
 type baseFnType = <Argus extends any[]>(...args: Argus) => void | unknown;
 
@@ -21,12 +21,19 @@ export interface SwipeActionProps {
 }
 
 const SwipeAction: React.FC<SwipeActionProps> = (props) => {
-  const { right: btnOptions, index, onOpen, onClose, disabled = false, children } = props;
+  const {
+    right: btnOptions,
+    index,
+    onOpen,
+    onClose,
+    disabled = false,
+    children,
+  } = props;
 
   const contentDomRef = useRef<HTMLDivElement>(null);
   const btnDomRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef<number>(0);
-  const directionRef = useRef<string>(""); // 保存滑动方向,touchmove和touchend里都要用到
+  const directionRef = useRef<string>(''); // 保存滑动方向,touchmove和touchend里都要用到
 
   /**
    * @description 滑动过程
@@ -50,11 +57,11 @@ const SwipeAction: React.FC<SwipeActionProps> = (props) => {
     if (offsetLeft >= btnWidth || offsetLeft > 0) return;
 
     if (currentX < startX) {
-      directionRef.current = "left";
-      contentDom.style.left = offsetLeft - 5 + "px";
+      directionRef.current = 'left';
+      contentDom.style.left = offsetLeft - 5 + 'px';
     } else {
-      directionRef.current = "right";
-      contentDom.style.left = offsetLeft + 5 + "px";
+      directionRef.current = 'right';
+      contentDom.style.left = offsetLeft + 5 + 'px';
     }
   };
 
@@ -74,11 +81,11 @@ const SwipeAction: React.FC<SwipeActionProps> = (props) => {
     let contentDom = contentDomRef.current;
     const direction = directionRef.current; // 往哪滑的
     const btnWidth = btnDomRef.current.offsetWidth; // 按钮宽度 即滑动的最大距离
-    if (direction === "left") {
-      contentDom.style.left = -btnWidth + "px";
+    if (direction === 'left') {
+      contentDom.style.left = -btnWidth + 'px';
       onOpen(index);
-    } else if (direction === "right") {
-      contentDom.style.left = 0 + "px";
+    } else if (direction === 'right') {
+      contentDom.style.left = 0 + 'px';
       onClose(index);
     }
   };
@@ -88,15 +95,15 @@ const SwipeAction: React.FC<SwipeActionProps> = (props) => {
    */
   useEffect(() => {
     let contentDom = contentDomRef.current;
-    contentDom.style.transition = "0.2s all";
-    contentDom.addEventListener("touchstart", touchstart);
-    contentDom.addEventListener("touchmove", touchmove);
-    contentDom.addEventListener("touchend", touchend);
+    contentDom.style.transition = '0.2s all';
+    contentDom.addEventListener('touchstart', touchstart);
+    contentDom.addEventListener('touchmove', touchmove);
+    contentDom.addEventListener('touchend', touchend);
     return () => {
-      contentDom.style.transition = "";
-      contentDom.removeEventListener("touchstart", touchstart);
-      contentDom.removeEventListener("touchmove", touchmove);
-      contentDom.removeEventListener("touchend", touchend);
+      contentDom.style.transition = '';
+      contentDom.removeEventListener('touchstart', touchstart);
+      contentDom.removeEventListener('touchmove', touchmove);
+      contentDom.removeEventListener('touchend', touchend);
     };
   }, []);
 
@@ -107,7 +114,14 @@ const SwipeAction: React.FC<SwipeActionProps> = (props) => {
       </div>
       <div ref={btnDomRef} className="slider-btn">
         {btnOptions.map((item, i) => (
-          <button key={i} onClick={() => item.onPress(index)} style={{ background: item.style.backgroundColor, color: item.style.color }}>
+          <button
+            key={i}
+            onClick={() => item.onPress(index)}
+            style={{
+              background: item.style.backgroundColor,
+              color: item.style.color,
+            }}
+          >
             {item.text}
           </button>
         ))}

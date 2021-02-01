@@ -3,45 +3,45 @@ $itemPrefixCls: 'au-list-item';
 
 /* list */
 .#{$listPrefixCls} {
-	&-header {
-	}
-	&-footer {
-	}
-	&-body {
-		display: flex;
-		flex-direction: column;
-	}
+  &-header {
+  }
+  &-footer {
+  }
+  &-body {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 /* list-item */
 .#{$itemPrefixCls} {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 
-	padding: $spacing-md;
-	border-top: 1px solid $gray-400;
-	&:last-child {
-		border-bottom: 1px solid $gray-400;
-	}
+  padding: $spacing-md;
+  border-top: 1px solid $gray-400;
+  &:last-child {
+    border-bottom: 1px solid $gray-400;
+  }
 
-	&-left {
-		display: flex;
-		flex-direction: row;
-		&-thumb {
-			margin-right: $spacing-md;
-			img {
-				width: 30px;
-				height: 30px;
-			}
-		}
-		&-children {
-		}
-	}
+  &-left {
+    display: flex;
+    flex-direction: row;
+    &-thumb {
+      margin-right: $spacing-md;
+      img {
+        width: 30px;
+        height: 30px;
+      }
+    }
+    &-children {
+    }
+  }
 
-	&-right {
-		img {
-			width: 30px;
-		}
-	}
+  &-right {
+    img {
+      width: 30px;
+    }
+  }
 }

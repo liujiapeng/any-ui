@@ -75,7 +75,7 @@ const icons: { [key: string]: string } = {
 
 const renderSvgSprite = () => {
   const symbols = Object.keys(icons)
-    .map(iconName => {
+    .map((iconName) => {
       const svgContent = icons[iconName].split('svg')[1];
       return `<symbol id=${iconName}${svgContent}symbol>`;
     })
