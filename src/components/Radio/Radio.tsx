@@ -20,32 +20,31 @@ export interface RadioProps {
 const wrapCls = classNames(radioPrefixCls);
 const radioItemCls = classNames(`${radioPrefixCls}-item`);
 
-const Radio: React.FC<RadioProps> = (props) => {
+const Radio: React.FC<RadioProps> = React.memo((props) => {
   const { value, onChangeValue, options = [] } = props;
   return (
     <div className={wrapCls}>
       <List>
         {options.map((item, index) => (
-          <div className={radioItemCls} key={index}>
-            <ListItem
-              value={item.value}
-              thumb={item.thumb}
-              right={
-                value === item.value
-                  ? () => <Icon size="xs" type={'check'} />
-                  : null
-              }
-              align={item.align}
-              onClick={(value) => onChangeValue(value)}
-            >
-              {item.desc}
-            </ListItem>
-          </div>
+          <ListItem
+            key={index}
+            value={item.value}
+            thumb={item.thumb}
+            right={
+              value === item.value
+                ? () => <Icon size="xs" type={'check'} />
+                : null
+            }
+            align={item.align}
+            onClick={onChangeValue}
+          >
+            {item.desc}
+          </ListItem>
         ))}
       </List>
     </div>
   );
-};
+});
 
 Radio.defaultProps = {
   value: null,

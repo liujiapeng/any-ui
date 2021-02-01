@@ -25,7 +25,8 @@ const childrenCls = classNames(`${listItemPrefixCls}-left-children`);
 // au-list-item-right 右边
 const rightCls = classNames(`${listItemPrefixCls}-right`);
 
-const List: React.FC<ListItemProps> = (props) => {
+const ListItem: React.FC<ListItemProps> = React.memo((props) => {
+  console.log('item render');
   const { thumb, onClick, align = 'center', right, value } = props;
 
   return (
@@ -54,13 +55,13 @@ const List: React.FC<ListItemProps> = (props) => {
       ) : null}
     </div>
   );
-};
+});
 
-List.defaultProps = {
+ListItem.defaultProps = {
   thumb: null,
   right: null,
   align: 'center',
   onClick: () => {},
 };
 
-export default List;
+export default ListItem;

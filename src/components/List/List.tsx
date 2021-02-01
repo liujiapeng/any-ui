@@ -15,7 +15,7 @@ const bodyCls = classNames(`${listPrefixCls}-body`);
 const headCls = classNames(`${listPrefixCls}-head`);
 const footCls = classNames(`${listPrefixCls}-foot`);
 
-const List: React.FC<ListProps> = (props) => {
+const List: React.FC<ListProps> = React.memo((props) => {
   const { headRender, footRender } = props;
   return (
     <div className={wrapCls}>
@@ -33,7 +33,7 @@ const List: React.FC<ListProps> = (props) => {
       )}
     </div>
   );
-};
+});
 
 List.defaultProps = {
   headRender: null,
