@@ -1,12 +1,7 @@
 $radioPrefixCls: 'au-radio';
-
+$radioItemPrefixCls: 'au-radio-item';
+$listItemPrefixCls: 'au-list-item';
 .#{$radioPrefixCls} {
-  &-item {
-    &:active {
-      opacity: 0.85;
-    }
-  }
-
   &-check {
     display: inline-block;
     position: relative;
@@ -14,5 +9,17 @@ $radioPrefixCls: 'au-radio';
     height: 15px;
     border-radius: 50%;
     background-color: #2ac845;
+  }
+}
+.#{$radioItemPrefixCls} {
+  border-top: 1px solid $gray-400;
+  &:last-child {
+    border-bottom: 1px solid $gray-400;
+  }
+  .#{$listItemPrefixCls} {
+    border: none;
+    &:active {
+      opacity: 0.8;
+    }
   }
 }

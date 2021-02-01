@@ -2,7 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { radioPrefixCls } from '../_util/config';
-import List, { ListItem } from '../List';
+import List from '../List';
+import RadioItem from './RadioItem';
 import Icon from '../Icon';
 type ItemType = {
   desc: string | (() => React.ReactElement); // 描述
@@ -18,7 +19,6 @@ export interface RadioProps {
 }
 
 const wrapCls = classNames(radioPrefixCls);
-const radioItemCls = classNames(`${radioPrefixCls}-item`);
 
 const Radio: React.FC<RadioProps> = React.memo((props) => {
   const { value, onChangeValue, options = [] } = props;
@@ -26,7 +26,7 @@ const Radio: React.FC<RadioProps> = React.memo((props) => {
     <div className={wrapCls}>
       <List>
         {options.map((item, index) => (
-          <ListItem
+          <RadioItem
             key={index}
             value={item.value}
             thumb={item.thumb}
@@ -39,7 +39,7 @@ const Radio: React.FC<RadioProps> = React.memo((props) => {
             onClick={onChangeValue}
           >
             {item.desc}
-          </ListItem>
+          </RadioItem>
         ))}
       </List>
     </div>
