@@ -83,10 +83,10 @@ const SwipeAction: React.FC<SwipeActionProps> = (props) => {
     const btnWidth = btnDomRef.current.offsetWidth; // 按钮宽度 即滑动的最大距离
     if (direction === 'left') {
       contentDom.style.left = -btnWidth + 'px';
-      onOpen(index);
+      typeof onOpen === 'function' && onOpen(index);
     } else if (direction === 'right') {
       contentDom.style.left = 0 + 'px';
-      onClose(index);
+      typeof onClose === 'function' && onClose(index);
     }
   };
 

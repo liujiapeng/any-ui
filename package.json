@@ -1,6 +1,6 @@
 {
   "name": "any-ui-mobile",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "jensonliu",
   "private": false,
   "main": "dist/index.js",
