@@ -1,24 +1,16 @@
 {
-  "name": "any-ui",
+  "name": "any-ui-mobile",
   "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "@types/classnames": "^2.2.11",
-    "@types/jest": "^26.0.15",
-    "@types/node": "^12.0.0",
-    "@types/react": "^16.9.53",
-    "@types/react-dom": "^16.9.8",
-    "classnames": "^2.2.6",
-    "node-sass": "^4.13.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-scripts": "4.0.1",
-    "rimraf": "^3.0.2",
-    "typescript": "^4.0.3",
-    "web-vitals": "^0.2.4"
+  "author": "jensonliu",
+  "private": false,
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "homepage": "https://github.com/liujiapeng/any-ui",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liujiapeng/any-ui"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -29,7 +21,44 @@
     "clean": "rimraf ./dist",
     "build-ts": "tsc -p tsconfig.build.json",
     "build-css": "node-sass ./src/styles/index.scss ./dist/index.css",
-    "build": "npm run clean && npm run build-css && npm run build-ts"
+    "build": "npm run clean && npm run build-css && npm run build-ts",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "classnames": "^2.2.6"
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "^6.1.10",
+    "@storybook/addon-essentials": "^6.1.10",
+    "@storybook/addon-links": "^6.1.10",
+    "@storybook/node-logger": "^6.1.10",
+    "@storybook/preset-create-react-app": "^3.1.5",
+    "@storybook/react": "^6.1.10",
+    "@types/classnames": "^2.2.11",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.53",
+    "@types/react-dom": "^16.9.8",
+    "node-sass": "^4.13.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.0.3",
+    "web-vitals": "^0.2.4"
+  },
+  "resolutions": {
+    "@storybook/react/babel-loader": "8.1.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "eslintConfig": {
     "extends": [
@@ -48,19 +77,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@storybook/addon-actions": "^6.1.10",
-    "@storybook/addon-essentials": "^6.1.10",
-    "@storybook/addon-links": "^6.1.10",
-    "@storybook/node-logger": "^6.1.10",
-    "@storybook/preset-create-react-app": "^3.1.5",
-    "@storybook/react": "^6.1.10"
-  },
-  "resolutions": {
-    "@storybook/react/babel-loader": "8.1.0"
-  },
-  "files": [
-    "dist"
-  ]
+  }
 }
