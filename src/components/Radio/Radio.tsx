@@ -31,7 +31,9 @@ const Radio: React.FC<RadioProps> = (props) => {
 							value={item.value}
 							thumb={item.thumb}
 							right={
-								value === item.value ? () => <Icon size="xs" type={'check'} /> : null
+								value === item.value
+									? () => <Icon size="xs" type={'check'} />
+									: null
 							}
 							align={item.align}
 							onClick={(value) => onChangeValue(value)}
