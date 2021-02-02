@@ -1,11 +1,10 @@
-/* tslint:disable:max-line-length */
-// inspried by https://github.com/kisenka/svg-sprite-loader/blob/master/runtime/browser-sprite.js
-// Much simplified, do make sure run this after document ready
+import { useCallback } from 'react';
+
 const svgSprite = (contents: string) => `
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
-    id="__ANTD_MOBILE_SVG_SPRITE_NODE__"
+    id="__ANY_UI_MOBILE_SVG_SPRITE_NODE__"
     style="display:none;overflow:hidden;width:0;height:0"
   >
     <defs>
@@ -87,7 +86,7 @@ const loadSprite = () => {
   if (!document) {
     return;
   }
-  const existing = document.getElementById('__ANTD_MOBILE_SVG_SPRITE_NODE__');
+  const existing = document.getElementById('__ANY_UI_MOBILE_SVG_SPRITE_NODE__');
   const mountNode = document.body;
 
   if (!existing) {
