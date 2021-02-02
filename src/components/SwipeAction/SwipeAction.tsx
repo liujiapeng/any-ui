@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-type baseFnType = <Argus extends any[]>(...args: Argus) => void | unknown;
+type baseFnType = (...args: any) => void | unknown;
 
 type RightOptionsType = {
   text: string;
