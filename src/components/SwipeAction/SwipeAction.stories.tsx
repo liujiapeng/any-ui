@@ -15,36 +15,40 @@ const Template: Story<SwipeActionProps> = (args: any) => {
   return (
     <List>
       {[1, 2, 3].map((k, i) => (
-        <SwipeAction key={i} {...args} />
+        <SwipeAction
+          key={i}
+          index={i}
+          disabled={false}
+          onOpen={() => {}}
+          onClose={() => {}}
+          right={[
+            {
+              text: 'Cancel',
+              onPress: (index: string) => console.log('cancel' + index),
+              style: { backgroundColor: '#ddd', color: 'white' },
+            },
+            {
+              text: 'Delete',
+              onPress: (index) => console.log('delete' + index),
+              style: { backgroundColor: '#F4333C', color: 'white' },
+            },
+          ]}
+        >
+          {' '}
+          <ListItem
+            value={1}
+            align="center"
+            thumb="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061901.jpg"
+            right={() => <Icon type="right"></Icon>}
+          >
+            <div style={{ fontSize: '16px' }}>rose</div>
+            <div style={{ color: 'gray', fontSize: '12px' }}>
+              dont make pipe dream
+            </div>
+          </ListItem>
+        </SwipeAction>
       ))}
     </List>
   );
 };
 export const Primary = Template.bind({});
-Primary.args = {
-  children: (
-    <ListItem
-      value={1}
-      align="center"
-      thumb="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061901.jpg"
-      right={() => <Icon type="right"></Icon>}
-    >
-      <div style={{ fontSize: '16px' }}>rose</div>
-      <div style={{ color: 'gray', fontSize: '12px' }}>
-        dont make pipe dream
-      </div>
-    </ListItem>
-  ),
-  right: [
-    {
-      text: 'Cancel',
-      onPress: (index: string) => console.log('cancel' + index),
-      style: { backgroundColor: '#ddd', color: 'white' },
-    },
-    {
-      text: 'Delete',
-      onPress: (index) => console.log('delete' + index),
-      style: { backgroundColor: '#F4333C', color: 'white' },
-    },
-  ],
-};

@@ -13,10 +13,10 @@ type RightOptionsType = {
 
 export interface SwipeActionProps {
   index: number;
-  right: RightOptionsType[];
-  onOpen: baseFnType;
-  onClose: baseFnType;
-  disabled: boolean;
+  right?: RightOptionsType[];
+  onOpen?: baseFnType;
+  onClose?: baseFnType;
+  disabled?: boolean;
   children: React.ReactNode;
 }
 
