@@ -18,6 +18,7 @@ export interface SwipeActionProps {
   onClose?: baseFnType;
   disabled?: boolean;
   children: React.ReactNode;
+  autoClose: boolean;
 }
 
 const SwipeAction: React.FC<SwipeActionProps> = (props) => {
@@ -28,6 +29,7 @@ const SwipeAction: React.FC<SwipeActionProps> = (props) => {
     onClose,
     disabled = false,
     children,
+    autoClose = false,
   } = props;
 
   const contentDomRef = useRef<HTMLDivElement>(null);
@@ -91,6 +93,14 @@ const SwipeAction: React.FC<SwipeActionProps> = (props) => {
   };
 
   /**
+   * 还原
+   */
+  const handleReset = () => {
+    let contentDom = contentDomRef.current;
+    contentDom.style.left = '0px';
+  };
+
+  /**
    *  @description 组件挂载 监听/移除事件
    */
   useEffect(() => {
@@ -100,7 +110,6 @@ const SwipeAction: React.FC<SwipeActionProps> = (props) => {
     contentDom.addEventListener('touchmove', touchmove);
     contentDom.addEventListener('touchend', touchend);
     return () => {
-      contentDom.style.transition = '';
       contentDom.removeEventListener('touchstart', touchstart);
       contentDom.removeEventListener('touchmove', touchmove);
       contentDom.removeEventListener('touchend', touchend);
@@ -116,7 +125,10 @@ const SwipeAction: React.FC<SwipeActionProps> = (props) => {
         {btnOptions.map((item, i) => (
           <button
             key={i}
-            onClick={() => item.onPress(index)}
+            onClick={() => {
+              autoClose && handleReset();
+              item.onPress(index);
+            }}
             style={{
               background: item.style.backgroundColor,
               color: item.style.color,

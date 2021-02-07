@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 import SwipeAction, { SwipeActionProps } from './SwipeAction';
 import List, { ListItem } from '../List';
@@ -12,10 +12,16 @@ export default {
 
 // const Template: Story<ButtonProps> = (args) => <Button {...args} />;
 const Template: Story<SwipeActionProps> = (args: any) => {
+  const [options, setOptions] = useState([
+    { name: 'jenson' },
+    { name: '馨儿' },
+    { name: 'hanna' },
+  ]);
   return (
     <List>
-      {[1, 2, 3].map((k, i) => (
+      {options.map((k, i) => (
         <SwipeAction
+          autoClose
           key={i}
           index={i}
           disabled={false}
@@ -29,7 +35,11 @@ const Template: Story<SwipeActionProps> = (args: any) => {
             },
             {
               text: 'Delete',
-              onPress: (index) => console.log('delete' + index),
+              onPress: (index) => {
+                let t = [...options];
+                t.splice(index, 1);
+                setOptions(t);
+              },
               style: { backgroundColor: '#F4333C', color: 'white' },
             },
           ]}
@@ -41,7 +51,7 @@ const Template: Story<SwipeActionProps> = (args: any) => {
             thumb="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061901.jpg"
             right={() => <Icon type="right"></Icon>}
           >
-            <div style={{ fontSize: '16px' }}>rose</div>
+            <div style={{ fontSize: '16px' }}>{k.name}</div>
             <div style={{ color: 'gray', fontSize: '12px' }}>
               dont make pipe dream
             </div>
