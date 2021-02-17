@@ -1,0 +1,33 @@
+/* 横向 */
+.horizontal-carousel {
+  /* 一定要隐藏掉超出部分的内容 */
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+}
+.horizontal-carousel .content {
+  display: inline-block;
+  /* 强制不换行，不设的话由于内容较多会换行到下方 */
+  white-space: nowrap;
+  width: auto;
+
+  /*初始状态*/
+  padding-left: 100%;
+}
+
+/* 纵向 */
+.vertical-carousel {
+  /* 一定要隐藏掉超出部分的内容 */
+  overflow: hidden;
+  width: auto;
+  height: 100%;
+}
+.vertical-carousel .content {
+  display: inline-block;
+  /* 强制不换行，不设的话由于内容较多会换行到下方 */
+  white-space: nowrap;
+  width: auto;
+
+  /* 初始状态 */
+  padding-top: 100%;
+}
