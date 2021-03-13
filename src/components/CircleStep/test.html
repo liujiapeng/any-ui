@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+  </head>
+
+  <body>
+    <div style="width: 300px;">
+      <svg class="circle-step" viewBox="0 0 150 150">
+        <circle
+          r="70"
+          cy="75"
+          cx="75"
+          stroke-width="8"
+          stroke="#EAEFF4"
+          stroke-linejoin="round"
+          stroke-linecap="round"
+          fill="none"
+        />
+        <circle
+          class="progress"
+          r="70"
+          cy="75"
+          cx="75"
+          stroke-width="8"
+          stroke="#1593FF"
+          stroke-linejoin="round"
+          stroke-linecap="round"
+          fill="none"
+          transform="rotate(-90,75,75)"
+          stroke-dashoffset="471"
+          stroke-dasharray="471"
+        >
+        <animate attributeName="stroke-dashoffset" attributeType="XML" from="471" to="0" begin="500ms" dur="2000ms" fill="freeze" />
+      </circle>
+      </svg>
+    </div>
+  </body>
+</html>
