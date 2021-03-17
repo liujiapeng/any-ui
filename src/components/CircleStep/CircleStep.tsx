@@ -1,9 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useRef,
-  useImperativeHandle,
-} from 'react';
+import React, { useRef, useImperativeHandle } from 'react';
 
 export interface IProps {
   process: number; // 进度 0 - 100
@@ -13,8 +8,18 @@ export interface IProps {
   auto?: boolean; //是否自动执行
 }
 
-// React.forwardRef<接收的props,useImperativeHandle暴露给外部的方法>
-const CircleStep = React.forwardRef<IProps, any>((props, ref) => {
+interface animateRefProps extends SVGAnimateElement {
+  beginElement: () => void;
+}
+
+export interface forwardRefProps {
+  excute: () => void;
+}
+
+/**
+ *  React.forwardRef<useImperativeHandle Props, 接收的props>
+ */
+const CircleStep = React.forwardRef<forwardRefProps, IProps>((props, ref) => {
   const {
     process,
     color = '#1593FF',
@@ -23,7 +28,22 @@ const CircleStep = React.forwardRef<IProps, any>((props, ref) => {
     auto = true,
   } = props;
 
-  const circleRef = useRef<SVGCircleElement>();
+  // animate DOM
+  const animateRef = useRef<animateRefProps>();
+
+  /**
+   * 手动触发
+   */
+  const excute = () => {
+    animateRef.current.beginElement();
+  };
+
+  /**
+   * 通过ref暴露
+   */
+  useImperativeHandle(ref, () => ({
+    excute: excute,
+  }));
 
   return (
     <div className="cs-wrap">
@@ -41,7 +61,6 @@ const CircleStep = React.forwardRef<IProps, any>((props, ref) => {
           fill="none"
         />
         <circle
-          ref={circleRef}
           className="progress"
           r="70"
           cy="75"
@@ -58,11 +77,12 @@ const CircleStep = React.forwardRef<IProps, any>((props, ref) => {
           transform="rotate(-90,75,75)"
         >
           <animate
+            ref={animateRef}
             attributeName="stroke-dashoffset"
             attributeType="XML"
             from="471"
             to={`${471 - (process / 100) * 471}`}
-            begin={`${delay}ms`}
+            begin={auto ? `${delay}ms` : `indefinite`}
             dur={`${duration}ms`}
             fill="freeze"
           />

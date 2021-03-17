@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-import CircleStep, { IProps } from './CircleStep';
+import CircleStep, { IProps, forwardRefProps } from './CircleStep';
 import '../../styles/index.scss';
 
 export default {
@@ -9,20 +9,23 @@ export default {
 } as Meta;
 
 const Template: Story<IProps> = (args) => {
-  const cref = useRef<null>();
+  const cref = useRef<forwardRefProps>();
+  const { auto } = args;
   return (
     <div>
-      <CircleStep
-        ref={cref}
-        auto={true}
-        process={75}
-        color="red"
-        duration={1500}
-        delay={1500}
-      ></CircleStep>
+      <CircleStep ref={cref} {...args}></CircleStep>
+      {!auto && <button onClick={() => cref.current.excute()}>excute</button>}
     </div>
   );
 };
 
 export const Primary = Template.bind({});
-Primary.args = {};
+
+Primary.args = {
+  auto: false,
+  process: 75,
+  color: 'red',
+  duration: 1500,
+  delay: 1500,
+};
+
