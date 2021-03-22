@@ -1,0 +1,56 @@
+.au-popup {
+  position: fixed;
+  width: 100%;
+  height: auto;
+  z-index: 1010;
+  transition-duration: 0.3s;
+}
+
+/* bottom */
+.au-popup.pop--bottom {
+  bottom:0;
+  left: 0;
+  transform: translateY(100%);
+}
+
+.au-popup.pop--bottom.show {
+  transform: translateY(0);
+}
+
+/* top */
+.au-popup.pop--top {
+  top: 0;
+  left: 0;
+  transform: translateY(-100%);
+}
+
+.au-popup.pop--top.show {
+  transform: translateX(0);
+}
+
+
+/* left */
+.au-popup.pop--left {
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+}
+
+.au-popup.pop--left.show {
+  transform: translateX(0);
+}
+
+/* right */
+.au-popup.pop--right {
+  bottom: 0;
+  right: 0;
+  transform: translateX(100%);
+}
+
+.au-popup.pop--right.show {
+  transform: translateX(0);
+}
+
+
+
+
