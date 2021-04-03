@@ -54,7 +54,7 @@ const Marquee: React.FC<MarqueeProps> = (props) => {
     <div
       ref={wrapRef}
       className={
-        direction == 'horizontal' ? 'horizontal-carousel' : 'vertical-carousel'
+        direction === 'horizontal' ? 'horizontal-carousel' : 'vertical-carousel'
       }
     >
       <p ref={contentRef} className="content">

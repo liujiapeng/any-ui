@@ -44,7 +44,7 @@ const Template: Story<RadioProps> = (args) => {
           value: '102',
         },
       ]}
-    ></Radio>
+    />
   )
 }
 

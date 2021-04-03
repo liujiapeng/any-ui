@@ -18,7 +18,7 @@ const RadioItem: React.FC<RadioItemProps> = React.memo((props) => {
   console.log('radio item render')
   return (
     <div className={radioItemWrapCls}>
-      <ListItem {...props}></ListItem>
+      <ListItem {...props} />
     </div>
   )
 })

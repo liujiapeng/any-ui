@@ -5,7 +5,7 @@ export interface IProps {
   color: string // 进度条颜色
   duration: number // 持续时间
   delay: number // 延迟开始时间
-  auto?: boolean //是否自动执行
+  auto?: boolean // 是否自动执行
 }
 
 interface animateRefProps extends SVGAnimateElement {
@@ -42,7 +42,7 @@ const CircleStep = React.forwardRef<forwardRefProps, IProps>((props, ref) => {
    * 通过ref暴露
    */
   useImperativeHandle(ref, () => ({
-    excute: excute,
+    excute,
   }))
 
   return (

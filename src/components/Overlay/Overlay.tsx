@@ -10,7 +10,7 @@ export interface IProps {
 
 const Overlay: React.FC<IProps> = ({ show, onClick }) => {
   const classes = classNames(`${overlayPredixCls}`, `${show ? 'mask' : ''}`)
-  return <div onClick={onClick} className={classes}></div>
+  return <div onClick={onClick} className={classes} />
 }
 
 export default Overlay

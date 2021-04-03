@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import classNames from 'classnames'
 
 import { radioPrefixCls } from '../_util/config'
 import List from '../List'
 import RadioItem from './RadioItem'
 import Icon from '../Icon'
+
 type ItemType = {
   desc: string | (() => React.ReactElement) // 描述
   value: string | number // 值
@@ -22,17 +23,18 @@ const wrapCls = classNames(radioPrefixCls)
 
 const Radio: React.FC<RadioProps> = React.memo((props) => {
   const { value, onChangeValue, options = [] } = props
+
   return (
     <div className={wrapCls}>
       <List>
         {options.map((item, index) => (
           <RadioItem
-            key={index}
+            key={item.value}
             value={item.value}
             thumb={item.thumb}
             right={
               value === item.value
-                ? () => <Icon size="xs" type={'check'} />
+                ? () => <Icon size="xs" type="check" />
                 : null
             }
             align={item.align}

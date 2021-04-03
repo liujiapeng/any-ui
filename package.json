@@ -23,7 +23,7 @@
     "build-css": "node-sass ./src/styles/index.scss ./dist/index.css",
     "build": "npm run clean && npm run build-css && npm run build-ts",
     "prepublishOnly": "npm run build",
-    "lint": "eslint 'src/**/*.{js,ts}'"
+    "lint": "eslint 'src/**/*.{js,ts,tsx}'"
   },
   "husky": {
     "hooks": {
@@ -59,6 +59,7 @@
     "eslint": "^7.23.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.1.0",
+    "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^3.3.1",

@@ -2,14 +2,16 @@ module.exports = {
   // ESLint 默认使用Espree作为其解析器，你可以在配置文件中指定一个不同的解析器
   parser: '@typescript-eslint/parser',
   extends: [
+    'airbnb',
+    'airbnb/hooks',
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
     'prettier',
-  ], // 使用推荐的React代码检测规范
+  ],
 
   // ESLint 支持使用第三方插件。在使用插件之前，你必须使用 npm 安装它。
   // 在配置文件里配置插件时，可以使用 plugins 关键字来存放插件名字的列表。插件名称可以省略 eslint-plugin- 前缀。
-  plugins: ['@typescript-eslint'],
+  plugins: ['react', '@typescript-eslint', 'react-hooks'],
 
   // 为我们提供运行环境，一个环境定义了一组预定义的全局变量
   env: {
@@ -22,6 +24,15 @@ module.exports = {
     react: {
       pragma: 'React',
       version: 'detect',
+    },
+    'import/resolver': {
+      node: {
+        // import 模块时，不写后缀将尝试导入的后缀，出现频率高的文件类型放前面
+        extensions: ['.tsx', '.ts', '.js', '.json', '.d.ts'],
+      },
+      typescript: {
+        // directory: [resolve('./src/tsconfig.json'), resolve('./scripts/tsconfig.json')],
+      },
     },
   },
 
@@ -49,6 +60,15 @@ module.exports = {
     quotes: [2, 'single'],
     'linebreak-style': 'off',
     eqeqeq: [2, 'allow-null'],
+
+    // 忽略导入拓展名
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      { ts: 'never', tsx: 'never', json: 'ignorePackages', js: 'never' },
+    ],
+
+    // 未使用的变量名
     'no-unused-vars': [
       1,
       {
@@ -59,12 +79,37 @@ module.exports = {
         argsIgnorePattern: '^_|^err|^ev', // _xxx, err, error, ev, event
       },
     ],
+
+    // 避免import React却没有显示调用的错误
+    'no-use-before-define': 'off',
+    '@typescript-eslint/no-use-before-define': ['error'],
+
     'no-useless-escape': 2,
 
     'react/prop-types': 0,
 
+    'react-hooks/rules-of-hooks': 'error',
+
+    'react-hooks/exhaustive-deps': 'warn',
+
     'react/display-name': 0,
 
     '@typescript-eslint/no-empty-function': 'off',
+
+    'react/jsx-filename-extension': [
+      2,
+      { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
+    ],
+
+    'react/jsx-props-no-spreading': 0,
+
+    // should be listed in the project's dependencies, not devDependencies
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+
+    'no-unused-expressions': 0,
+
+    'jsx-a11y/no-static-element-interactions': 0,
+
+    'jsx-a11y/click-events-have-key-events': 0,
   },
 }

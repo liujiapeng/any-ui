@@ -8,13 +8,11 @@ export default {
   component: Overlay,
 } as Meta
 
-const Template: Story<IProps> = (args) => {
-  return (
-    <div>
-      <Overlay {...args}></Overlay>
-    </div>
-  )
-}
+const Template: Story<IProps> = (args) => (
+  <div>
+    <Overlay {...args} />
+  </div>
+)
 
 export const Primary = Template.bind({})
 

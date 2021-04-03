@@ -16,7 +16,7 @@ const Template: Story<ListProps> = (args) => (
       value={1}
       align="center"
       thumb="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061901.jpg"
-      right={() => <Icon type="right"></Icon>}
+      right={() => <Icon type="right" />}
     >
       <div style={{ fontSize: '16px' }}>rose</div>
       <div style={{ color: 'gray', fontSize: '12px' }}>
@@ -26,7 +26,7 @@ const Template: Story<ListProps> = (args) => (
     <ListItem
       value={2}
       thumb="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061901.jpg"
-      right={() => <Icon type="right"></Icon>}
+      right={() => <Icon type="right" />}
     >
       <div>list item 1</div>
     </ListItem>

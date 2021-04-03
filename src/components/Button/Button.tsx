@@ -42,13 +42,17 @@ const Button: React.FC<ButtonProps> = (props) => {
         {children}
       </a>
     )
-  } else {
-    return (
-      <button {...restProps} className={classes} disabled={disabled}>
-        {children}
-      </button>
-    )
   }
+  return (
+    <button
+      type="button"
+      {...restProps}
+      className={classes}
+      disabled={disabled}
+    >
+      {children}
+    </button>
+  )
 }
 
 Button.defaultProps = {

@@ -40,7 +40,7 @@ const ListItem: React.FC<ListItemProps> = React.memo((props) => {
         {/* 缩略图 */}
         {thumb ? (
           <div className={thumbStyle}>
-            {typeof thumb === 'string' ? <img src={thumb} /> : thumb()}
+            {typeof thumb === 'string' ? <img alt="" src={thumb} /> : thumb()}
           </div>
         ) : null}
         {/* 中间自定义 */}
@@ -50,7 +50,7 @@ const ListItem: React.FC<ListItemProps> = React.memo((props) => {
       {/* 右边 */}
       {right ? (
         <div className={rightCls}>
-          {typeof right === 'string' ? <img src={right} /> : right()}
+          {typeof right === 'string' ? <img alt="" src={right} /> : right()}
         </div>
       ) : null}
     </div>

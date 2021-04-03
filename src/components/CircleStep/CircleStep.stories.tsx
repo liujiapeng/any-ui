@@ -13,8 +13,12 @@ const Template: Story<IProps> = (args) => {
   const { auto } = args
   return (
     <div>
-      <CircleStep ref={cref} {...args}></CircleStep>
-      {!auto && <button onClick={() => cref.current.excute()}>excute</button>}
+      <CircleStep ref={cref} {...args} />
+      {!auto && (
+        <button type="button" onClick={() => cref.current.excute()}>
+          excute
+        </button>
+      )}
     </div>
   )
 }

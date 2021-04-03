@@ -12,34 +12,32 @@ const demoStyle = {
   // height: '100px',
 }
 
-const DemoContent: React.FC = () => {
-  return (
-    <div>
-      <h1>That is some content in here</h1>
-      <p>
-        declare keyword is usually used in type definitions to describe existing
-        classes or variables that are defined externally in JavaScript code.
-      </p>
-    </div>
-  )
-}
-const Template: Story<IProps> = (args) => {
-  return (
-    <div>
-      <Popup {...args}>
-        <div style={demoStyle}>
-          <DemoContent />
-        </div>
-      </Popup>
-    </div>
-  )
-}
+const DemoContent: React.FC = () => (
+  <div>
+    <h1>That is some content in here</h1>
+    <p>
+      declare keyword is usually used in type definitions to describe existing
+      classes or variables that are defined externally in JavaScript code.
+    </p>
+  </div>
+)
+const Template: Story<IProps> = (args) => (
+  <div>
+    <Popup {...args}>
+      <div style={demoStyle}>
+        <DemoContent />
+      </div>
+    </Popup>
+  </div>
+)
 
 const Template2: Story<Omit<IProps, 'show'>> = (args) => {
   const [show, setShow] = useState(false)
   return (
     <div>
-      <button onClick={() => setShow(true)}>展示</button>
+      <button type="button" onClick={() => setShow(true)}>
+        展示
+      </button>
       <Popup
         {...args}
         show={show}

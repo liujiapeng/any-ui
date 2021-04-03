@@ -21,6 +21,8 @@ export interface SwipeActionProps {
   autoClose: boolean
 }
 
+const pow = (a: number, b: number) => a ** b
+
 const SwipeAction: React.FC<SwipeActionProps> = (props) => {
   const {
     right: btnOptions,
@@ -49,21 +51,21 @@ const SwipeAction: React.FC<SwipeActionProps> = (props) => {
     const btnWidth = btnDomRef.current.offsetWidth // 按钮宽度 即滑动的最大距离
 
     //  一个缓存值，滑动了一定距离后生效
-    if (Math.pow(startX - currentX, 2) < 5000) {
+    if (pow(startX - currentX, 2) < 5000) {
       return
     }
 
-    const offsetLeft = contentDom.offsetLeft // 获取当前左滑的距离
+    const { offsetLeft } = contentDom // 获取当前左滑的距离
 
     // 滑倒头了
     if (offsetLeft >= btnWidth || offsetLeft > 0) return
 
     if (currentX < startX) {
       directionRef.current = 'left'
-      contentDom.style.left = offsetLeft - 5 + 'px'
+      contentDom.style.left = `${offsetLeft - 5}px`
     } else {
       directionRef.current = 'right'
-      contentDom.style.left = offsetLeft + 5 + 'px'
+      contentDom.style.left = `${offsetLeft + 5}px`
     }
   }
 
@@ -84,10 +86,10 @@ const SwipeAction: React.FC<SwipeActionProps> = (props) => {
     const direction = directionRef.current // 往哪滑的
     const btnWidth = btnDomRef.current.offsetWidth // 按钮宽度 即滑动的最大距离
     if (direction === 'left') {
-      contentDom.style.left = -btnWidth + 'px'
+      contentDom.style.left = `${-btnWidth}px`
       typeof onOpen === 'function' && onOpen(index)
     } else if (direction === 'right') {
-      contentDom.style.left = 0 + 'px'
+      contentDom.style.left = `${0}px`
       typeof onClose === 'function' && onClose(index)
     }
   }
@@ -124,7 +126,8 @@ const SwipeAction: React.FC<SwipeActionProps> = (props) => {
       <div ref={btnDomRef} className="slider-btn">
         {btnOptions.map((item, i) => (
           <button
-            key={i}
+            type="button"
+            key={item.text}
             onClick={() => {
               autoClose && handleReset()
               item.onPress(index)

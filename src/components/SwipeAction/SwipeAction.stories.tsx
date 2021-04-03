@@ -22,7 +22,7 @@ const Template: Story<SwipeActionProps> = () => {
       {options.map((k, i) => (
         <SwipeAction
           autoClose
-          key={i}
+          key={k.name}
           index={i}
           disabled={false}
           onOpen={() => {}}
@@ -30,7 +30,7 @@ const Template: Story<SwipeActionProps> = () => {
           right={[
             {
               text: 'Cancel',
-              onPress: (index: string) => console.log('cancel' + index),
+              onPress: (index: string) => console.log(`cancel${index}`),
               style: { backgroundColor: '#ddd', color: 'white' },
             },
             {
@@ -49,7 +49,7 @@ const Template: Story<SwipeActionProps> = () => {
             value={1}
             align="center"
             thumb="http://www.ruanyifeng.com/blogimg/asset/201206/bg2012061901.jpg"
-            right={() => <Icon type="right"></Icon>}
+            right={() => <Icon type="right" />}
           >
             <div style={{ fontSize: '16px' }}>{k.name}</div>
             <div style={{ color: 'gray', fontSize: '12px' }}>

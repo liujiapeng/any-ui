@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useEffect, useRef } from 'react'
 
-import Overlay from '../Overlay'
 import classNames from 'classnames'
+import Overlay from '../Overlay'
 
 import { popupPredixCls } from '../_util/config'
 
@@ -32,7 +32,7 @@ const Popup: React.FC<PropsWithChildren<IProps>> = ({
   )
 
   const styles = {
-    height: typeof height === 'number' ? height + 'px' : 'auto',
+    height: typeof height === 'number' ? `${height}px` : 'auto',
   }
 
   const flag = useRef<number>(0)
@@ -52,7 +52,7 @@ const Popup: React.FC<PropsWithChildren<IProps>> = ({
 
   return (
     <>
-      {mask && <Overlay onClick={onClickMask} show={show}></Overlay>}
+      {mask && <Overlay onClick={onClickMask} show={show} />}
       <div style={styles} className={classes}>
         {children}
       </div>
