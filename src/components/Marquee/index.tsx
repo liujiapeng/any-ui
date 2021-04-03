@@ -1,2 +1,2 @@
-import Marquee from './Marquee';
-export default Marquee;
+import Marquee from './Marquee'
+export default Marquee

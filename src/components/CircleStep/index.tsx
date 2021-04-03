@@ -1,3 +1,3 @@
-import CircleStep from './CircleStep';
+import CircleStep from './CircleStep'
 
-export default CircleStep;
+export default CircleStep

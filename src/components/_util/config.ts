@@ -1,17 +1,17 @@
-export const prefixCls = 'au';
+export const prefixCls = 'au'
 
 // list
-export const listPrefixCls = 'au-list';
-export const listItemPrefixCls = 'au-list-item';
+export const listPrefixCls = 'au-list'
+export const listItemPrefixCls = 'au-list-item'
 
 // radio
-export const radioPrefixCls = `au-radio`;
+export const radioPrefixCls = 'au-radio'
 
 // overlay
-export const overlayPredixCls = `au-overlay`;
+export const overlayPredixCls = 'au-overlay'
 
 // popup
-export const popupPredixCls = `au-popup`;
+export const popupPredixCls = 'au-popup'
 
 // actionsheet
-export const actionSheetPredixCls = `au-as`;
+export const actionSheetPredixCls = 'au-as'

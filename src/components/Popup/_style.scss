@@ -3,12 +3,15 @@
   width: 100%;
   height: auto;
   z-index: 1010;
+  background: #fff;
+  border-radius: 20px 20px 0 0;
+  padding: 10px;
   transition-duration: 0.3s;
 }
 
 /* bottom */
 .au-popup.pop--bottom {
-  bottom:0;
+  bottom: 0;
   left: 0;
   transform: translateY(100%);
 }
@@ -27,7 +30,6 @@
 .au-popup.pop--top.show {
   transform: translateX(0);
 }
-
 
 /* left */
 .au-popup.pop--left {
@@ -50,7 +52,3 @@
 .au-popup.pop--right.show {
   transform: translateX(0);
 }
-
-
-
-

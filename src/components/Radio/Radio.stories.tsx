@@ -1,18 +1,18 @@
-import React, { useCallback, useState } from 'react';
-import { Story, Meta } from '@storybook/react/types-6-0';
-import Radio, { RadioProps } from './Radio';
-import '../../styles/index.scss';
+import React, { useCallback, useState } from 'react'
+import { Story, Meta } from '@storybook/react/types-6-0'
+import Radio, { RadioProps } from './Radio'
+import '../../styles/index.scss'
 
 export default {
   title: 'Radio',
   component: Radio,
-} as Meta;
+} as Meta
 
 const Template: Story<RadioProps> = (args) => {
-  const [value, setValue] = useState('1011');
-  const onChangeValue = useCallback((v)=>{
+  const [value, setValue] = useState('1011')
+  const onChangeValue = useCallback((v) => {
     setValue(v)
-  },[])
+  }, [])
   return (
     <Radio
       value={value}
@@ -45,7 +45,7 @@ const Template: Story<RadioProps> = (args) => {
         },
       ]}
     ></Radio>
-  );
-};
+  )
+}
 
-export const Primary = Template.bind({});
+export const Primary = Template.bind({})

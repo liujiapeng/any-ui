@@ -1,17 +1,18 @@
-import React, { PropsWithChildren, useEffect, useRef } from 'react';
+import React, { PropsWithChildren, useEffect, useRef } from 'react'
 
-import Overlay from '../Overlay';
-import classNames from 'classnames';
+import Overlay from '../Overlay'
+import classNames from 'classnames'
 
-import { popupPredixCls } from '../_util/config';
+import { popupPredixCls } from '../_util/config'
 
 export interface IProps {
-  show: boolean;
-  direction: 'bottom' | 'top' | 'mid' | 'right' | 'left';
-  mask?: boolean;
-  onClickMask: () => void;
-  onOpen: () => void;
-  onClose: () => void;
+  show: boolean
+  direction: 'bottom' | 'top' | 'mid' | 'right' | 'left'
+  mask?: boolean
+  height?: number
+  onClickMask: () => void
+  onOpen: () => void
+  onClose: () => void
 }
 
 const Popup: React.FC<PropsWithChildren<IProps>> = ({
@@ -19,6 +20,7 @@ const Popup: React.FC<PropsWithChildren<IProps>> = ({
   direction = 'bottom',
   children,
   mask = true,
+  height,
   onClickMask,
   onOpen,
   onClose,
@@ -26,30 +28,36 @@ const Popup: React.FC<PropsWithChildren<IProps>> = ({
   const classes = classNames(
     `${popupPredixCls}`,
     `pop--${direction}`,
-    `${show ? `show` : ''}`
-  );
+    `${show ? 'show' : ''}`
+  )
 
-  const flag = useRef<number>(0);
+  const styles = {
+    height: typeof height === 'number' ? height + 'px' : 'auto',
+  }
+
+  const flag = useRef<number>(0)
 
   useEffect(() => {
-    flag.current += 1;
+    flag.current += 1
     if (flag.current === 1) {
       // 首次挂载
-      return;
+      return
     }
     if (show) {
-      onOpen();
+      onOpen()
     } else {
-      onClose();
+      onClose()
     }
-  }, [show]);
+  }, [show])
 
   return (
     <>
       {mask && <Overlay onClick={onClickMask} show={show}></Overlay>}
-      <div className={classes}>{children}</div>
+      <div style={styles} className={classes}>
+        {children}
+      </div>
     </>
-  );
-};
+  )
+}
 
-export default Popup;
+export default Popup

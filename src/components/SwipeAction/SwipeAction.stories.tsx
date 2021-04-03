@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import { Story, Meta } from '@storybook/react/types-6-0';
-import SwipeAction, { SwipeActionProps } from './SwipeAction';
-import List, { ListItem } from '../List';
-import Icon from '../Icon';
-import '../../styles/index.scss';
+import React, { useState } from 'react'
+import { Story, Meta } from '@storybook/react/types-6-0'
+import SwipeAction, { SwipeActionProps } from './SwipeAction'
+import List, { ListItem } from '../List'
+import Icon from '../Icon'
+import '../../styles/index.scss'
 
 export default {
   title: 'SwipeAction',
   component: SwipeAction,
-} as Meta;
+} as Meta
 
 // const Template: Story<ButtonProps> = (args) => <Button {...args} />;
-const Template: Story<SwipeActionProps> = (args: any) => {
+const Template: Story<SwipeActionProps> = () => {
   const [options, setOptions] = useState([
     { name: 'jenson' },
     { name: '馨儿' },
     { name: 'hanna' },
-  ]);
+  ])
   return (
     <List>
       {options.map((k, i) => (
@@ -36,9 +36,9 @@ const Template: Story<SwipeActionProps> = (args: any) => {
             {
               text: 'Delete',
               onPress: (index) => {
-                let t = [...options];
-                t.splice(index, 1);
-                setOptions(t);
+                const t = [...options]
+                t.splice(index, 1)
+                setOptions(t)
               },
               style: { backgroundColor: '#F4333C', color: 'white' },
             },
@@ -59,6 +59,6 @@ const Template: Story<SwipeActionProps> = (args: any) => {
         </SwipeAction>
       ))}
     </List>
-  );
-};
-export const Primary = Template.bind({});
+  )
+}
+export const Primary = Template.bind({})
