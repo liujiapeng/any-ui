@@ -48,7 +48,7 @@ const Popup: React.FC<PropsWithChildren<IProps>> = ({
     } else {
       onClose()
     }
-  }, [show])
+  }, [onClose, onOpen, show])
 
   return (
     <>

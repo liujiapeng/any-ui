@@ -1,8 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
 
-import Item from './ListItem'
-
 import { listPrefixCls } from '../_util/config'
 
 export interface ListProps {

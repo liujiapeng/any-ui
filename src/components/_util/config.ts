@@ -15,3 +15,6 @@ export const popupPredixCls = 'au-popup'
 
 // actionsheet
 export const actionSheetPredixCls = 'au-as'
+
+// skeleton
+export const skeletonPrefixCls = 'au-sk'

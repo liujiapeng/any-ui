@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { Story, Meta } from '@storybook/react/types-6-0'
 import Popup, { IProps } from './Popup'
 import '../../styles/index.scss'

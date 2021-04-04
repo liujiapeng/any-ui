@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 
 type baseFnType = (...args: any) => void | unknown
 
@@ -43,45 +43,48 @@ const SwipeAction: React.FC<SwipeActionProps> = (props) => {
    * @description 滑动过程
    * @param e
    */
-  const touchmove = (e) => {
-    if (disabled) return
-    const contentDom = contentDomRef.current
-    const startX = touchStartX.current // 触碰开始
-    const currentX = e.touches[0].pageX //  实时位置
-    const btnWidth = btnDomRef.current.offsetWidth // 按钮宽度 即滑动的最大距离
+  const touchmove = useCallback(
+    (e) => {
+      if (disabled) return
+      const contentDom = contentDomRef.current
+      const startX = touchStartX.current // 触碰开始
+      const currentX = e.touches[0].pageX //  实时位置
+      const btnWidth = btnDomRef.current.offsetWidth // 按钮宽度 即滑动的最大距离
 
-    //  一个缓存值，滑动了一定距离后生效
-    if (pow(startX - currentX, 2) < 5000) {
-      return
-    }
+      //  一个缓存值，滑动了一定距离后生效
+      if (pow(startX - currentX, 2) < 5000) {
+        return
+      }
 
-    const { offsetLeft } = contentDom // 获取当前左滑的距离
+      const { offsetLeft } = contentDom // 获取当前左滑的距离
 
-    // 滑倒头了
-    if (offsetLeft >= btnWidth || offsetLeft > 0) return
+      // 滑倒头了
+      if (offsetLeft >= btnWidth || offsetLeft > 0) return
 
-    if (currentX < startX) {
-      directionRef.current = 'left'
-      contentDom.style.left = `${offsetLeft - 5}px`
-    } else {
-      directionRef.current = 'right'
-      contentDom.style.left = `${offsetLeft + 5}px`
-    }
-  }
+      if (currentX < startX) {
+        directionRef.current = 'left'
+        contentDom.style.left = `${offsetLeft - 5}px`
+      } else {
+        directionRef.current = 'right'
+        contentDom.style.left = `${offsetLeft + 5}px`
+      }
+    },
+    [disabled]
+  )
 
   /**
    * @description 滑动开始 记录开始的位置
    * @param e
    */
-  const touchstart = (e) => {
+  const touchstart = useCallback((e) => {
     touchStartX.current = e.touches[0].pageX
-  }
+  }, [])
 
   /**
    * @description 滑动结束 还原位置
    * @param e
    */
-  const touchend = () => {
+  const touchend = useCallback(() => {
     const contentDom = contentDomRef.current
     const direction = directionRef.current // 往哪滑的
     const btnWidth = btnDomRef.current.offsetWidth // 按钮宽度 即滑动的最大距离
@@ -92,7 +95,7 @@ const SwipeAction: React.FC<SwipeActionProps> = (props) => {
       contentDom.style.left = `${0}px`
       typeof onClose === 'function' && onClose(index)
     }
-  }
+  }, [index, onClose, onOpen])
 
   /**
    * 还原
@@ -116,7 +119,7 @@ const SwipeAction: React.FC<SwipeActionProps> = (props) => {
       contentDom.removeEventListener('touchmove', touchmove)
       contentDom.removeEventListener('touchend', touchend)
     }
-  }, [])
+  }, [touchend, touchmove, touchstart])
 
   return (
     <div className="slider-wrap">
@@ -124,7 +127,7 @@ const SwipeAction: React.FC<SwipeActionProps> = (props) => {
         {children}
       </div>
       <div ref={btnDomRef} className="slider-btn">
-        {btnOptions.map((item, i) => (
+        {btnOptions.map((item) => (
           <button
             type="button"
             key={item.text}

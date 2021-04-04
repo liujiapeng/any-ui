@@ -7,6 +7,9 @@
 //mixin
 @import 'mixin';
 
+// global
+@import 'global';
+
 // button
 @import '../components/Button/styles';
 
@@ -32,4 +35,7 @@
 @import '../components/Overlay/style';
 
 // Popup
-@import '../components/Popup/style'
+@import '../components/Popup/style'; //
+
+// Sk
+@import '../components/Skeleton/styles';

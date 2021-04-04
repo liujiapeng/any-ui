@@ -1,6 +1,6 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import classNames from 'classnames'
-import { listItemPrefixCls, listPrefixCls } from '../_util/config'
+import { listItemPrefixCls } from '../_util/config'
 
 export interface ListItemProps {
   value: number | string // ListItem唯一标识

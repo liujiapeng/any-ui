@@ -48,7 +48,7 @@ const Marquee: React.FC<MarqueeProps> = (props) => {
       addKeyFrames(rules)
       contentRef.current.style.animation = `vertical-move ${duration}s linear infinite`
     }
-  }, [])
+  }, [direction, duration])
 
   return (
     <div

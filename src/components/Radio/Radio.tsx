@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React from 'react'
 import classNames from 'classnames'
 
 import { radioPrefixCls } from '../_util/config'
@@ -27,7 +27,7 @@ const Radio: React.FC<RadioProps> = React.memo((props) => {
   return (
     <div className={wrapCls}>
       <List>
-        {options.map((item, index) => (
+        {options.map((item) => (
           <RadioItem
             key={item.value}
             value={item.value}

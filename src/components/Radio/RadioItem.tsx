@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import classNames from 'classnames'
 import { ListItem } from '../List'
 import { radioPrefixCls } from '../_util/config'
@@ -14,14 +14,11 @@ export interface RadioItemProps {
 // au-list-item
 const radioItemWrapCls = classNames(`${radioPrefixCls}-item`)
 
-const RadioItem: React.FC<RadioItemProps> = React.memo((props) => {
-  console.log('radio item render')
-  return (
-    <div className={radioItemWrapCls}>
-      <ListItem {...props} />
-    </div>
-  )
-})
+const RadioItem: React.FC<RadioItemProps> = React.memo((props) => (
+  <div className={radioItemWrapCls}>
+    <ListItem {...props} />
+  </div>
+))
 
 RadioItem.defaultProps = {
   value: '',
