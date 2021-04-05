@@ -1,0 +1,28 @@
+$primary-width: 200px;
+$primary-height: 160px;
+.block {
+  width: $primary-width;
+  min-height: $primary-height;
+  color: rgb(255, 255, 255);
+  line-height: 160px;
+  text-align: center;
+  background: rgb(54, 77, 121);
+
+  display: inline-block;
+  font-size: 16px;
+}
+
+.container {
+  width: $primary-width;
+  min-height: $primary-height;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.carousel-wrap {
+  position: relative;
+
+  letter-spacing: -0.3333em;
+  font-size: 0;
+
+  /* transition-duration: 0.3s; */
+}
