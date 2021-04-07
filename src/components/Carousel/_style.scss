@@ -1,22 +1,32 @@
-$primary-width: 200px;
+$primary-width: 100%;
 $primary-height: 160px;
 .block {
   width: $primary-width;
-  min-height: $primary-height;
   color: rgb(255, 255, 255);
-  line-height: 160px;
   text-align: center;
   background: rgb(54, 77, 121);
 
   display: inline-block;
   font-size: 16px;
+  img {
+    width: 100%;
+  }
 }
 
-.container {
+.carousel-container {
+  position: relative;
   width: $primary-width;
-  min-height: $primary-height;
   overflow: hidden;
   white-space: nowrap;
+  .array {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    z-index: 99;
+  }
 }
 .carousel-wrap {
   position: relative;
@@ -25,4 +35,56 @@ $primary-height: 160px;
   font-size: 0;
 
   /* transition-duration: 0.3s; */
+}
+
+// 箭头
+.carousel-array-row {
+  position: absolute;
+  width: 100%;
+  z-index: 99;
+  display: flex;
+  justify-content: space-between;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0 10px;
+  .carousel-array-wrap {
+    border-radius: 50%;
+    background-color: rgba(3, 3, 5, 0.11);
+    padding: 10px;
+    .carousel-array {
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      border-top: 2px solid rgb(205, 205, 230);
+      border-left: 2px solid rgb(205, 205, 230);
+
+      // opacity: 0.5;
+      &.right {
+        transform: translateX(-25%) rotate(135deg);
+      }
+      &.left {
+        transform: translateX(25%) rotate(315deg);
+      }
+    }
+  }
+}
+
+// 点点
+.point-group {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 99;
+  transform: translate(-50%, -100%);
+}
+.point {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: gray;
+  margin: 5px;
+  &.active {
+    background: rgb(236, 234, 234);
+  }
 }
