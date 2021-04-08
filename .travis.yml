@@ -6,6 +6,15 @@ cache:
     - node_modules
 env:
   - CI=true
+
+# whitelist
+branches:
+  only:
+    - main
+
+install:
+  - yarn
+
 script:
   - npm run build-storybook
 deploy:
