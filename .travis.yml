@@ -7,11 +7,6 @@ cache:
 env:
   - CI=true
 
-# whitelist
-branches:
-  only:
-    - main
-
 install:
   - yarn
 
