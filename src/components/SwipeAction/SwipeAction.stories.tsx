@@ -14,8 +14,8 @@ export default {
 const Template: Story<SwipeActionProps> = () => {
   const [options, setOptions] = useState([
     { name: 'jenson' },
-    { name: '馨儿' },
-    { name: 'hanna' },
+    { name: 'rick' },
+    { name: 'hansome' },
   ])
   return (
     <List>

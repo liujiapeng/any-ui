@@ -12,7 +12,7 @@ $listItemPrefixCls: 'au-list-item';
   height: 100%;
   position: relative;
   z-index: 20;
-  vertical-align: bottom; // 不设置这个的话，wrap会比content高一点，不知道是为什么
+  vertical-align: bottom; // 不设置这个的话，wrap会比content高一点，不知道是为什么x
 }
 
 .slider-btn {
@@ -23,6 +23,8 @@ $listItemPrefixCls: 'au-list-item';
 
   display: inline-flex;
   flex-direction: row;
+
+  transform: scale(0.98);
 
   button {
     flex: 1;
@@ -37,7 +39,7 @@ $listItemPrefixCls: 'au-list-item';
     border-bottom: 1px solid $gray-400;
   }
   .#{$listItemPrefixCls} {
-    border: none!important;
+    border: none !important;
     &:active {
       opacity: 0.8;
     }

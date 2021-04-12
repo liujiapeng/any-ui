@@ -21,8 +21,6 @@ export interface SwipeActionProps {
   autoClose: boolean
 }
 
-const pow = (a: number, b: number) => a ** b
-
 const SwipeAction: React.FC<SwipeActionProps> = (props) => {
   const {
     right: btnOptions,
@@ -39,6 +37,8 @@ const SwipeAction: React.FC<SwipeActionProps> = (props) => {
   const touchStartX = useRef<number>(0)
   const directionRef = useRef<string>('') // 保存滑动方向,touchmove和touchend里都要用到
 
+  const preTouchS = useRef<number>(0)
+
   /**
    * @description 滑动过程
    * @param e
@@ -51,23 +51,34 @@ const SwipeAction: React.FC<SwipeActionProps> = (props) => {
       const currentX = e.touches[0].pageX //  实时位置
       const btnWidth = btnDomRef.current.offsetWidth // 按钮宽度 即滑动的最大距离
 
-      //  一个缓存值，滑动了一定距离后生效
-      if (pow(startX - currentX, 2) < 5000) {
+      const touchS = currentX - startX
+
+      if (touchS - preTouchS.current < 0) {
+        directionRef.current = 'left'
+      } else {
+        directionRef.current = 'right'
+      }
+
+      if (
+        parseInt(contentDom.style.left, 10) > 5 &&
+        directionRef.current === 'right'
+      ) {
         return
       }
 
-      const { offsetLeft } = contentDom // 获取当前左滑的距离
-
       // 滑倒头了
-      if (offsetLeft >= btnWidth || offsetLeft > 0) return
-
-      if (currentX < startX) {
-        directionRef.current = 'left'
-        contentDom.style.left = `${offsetLeft - 5}px`
-      } else {
-        directionRef.current = 'right'
-        contentDom.style.left = `${offsetLeft + 5}px`
+      if (
+        Math.abs(touchS) >= btnWidth * 1.5 &&
+        directionRef.current === 'left'
+      ) {
+        return
       }
+
+      // window.requestAnimationFrame(() => {
+      contentDom.style.left = `${touchS}px`
+      // })
+
+      preTouchS.current = touchS
     },
     [disabled]
   )
@@ -110,7 +121,7 @@ const SwipeAction: React.FC<SwipeActionProps> = (props) => {
    */
   useEffect(() => {
     const contentDom = contentDomRef.current
-    contentDom.style.transition = '0.2s all'
+    contentDom.style.transition = '0.1s all'
     contentDom.addEventListener('touchstart', touchstart)
     contentDom.addEventListener('touchmove', touchmove)
     contentDom.addEventListener('touchend', touchend)
