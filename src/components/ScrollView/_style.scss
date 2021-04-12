@@ -1,6 +1,19 @@
-.au-scroll-view {
+.au-scroll-container {
   position: relative;
-  top: 0;
-  height: 300px;
-  overflow-y: auto;
+  .au-scroll-view {
+    position: relative;
+    top: 0;
+    height: 300px;
+    overflow-y: auto;
+    transition: top 0.1s;
+    z-index: 10;
+    background: #fff;
+  }
+
+  .refresh-content {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    text-align: center;
+  }
 }

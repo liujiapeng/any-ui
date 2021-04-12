@@ -42,6 +42,15 @@ const Template: Story<SwipeActionProps> = () => {
               },
               style: { backgroundColor: '#F4333C', color: 'white' },
             },
+            {
+              text: 'Delete',
+              onPress: (index) => {
+                const t = [...options]
+                t.splice(index, 1)
+                setOptions(t)
+              },
+              style: { backgroundColor: '#F4333C', color: 'white' },
+            },
           ]}
         >
           {' '}

@@ -32,9 +32,13 @@ const SwipeAction: React.FC<SwipeActionProps> = (props) => {
     autoClose = false,
   } = props
 
+  const getLeft = (dom: HTMLElement): number =>
+    parseInt(dom.style.left || '0px', 10)
+
   const contentDomRef = useRef<HTMLDivElement>(null)
   const btnDomRef = useRef<HTMLDivElement>(null)
-  const touchStartX = useRef<number>(0)
+  const touchStartX = useRef<number>(0) // 保存点击时的初始点击坐标
+  const touchStartLeft = useRef<number>(0) // 保存点击时的初始位置
   const directionRef = useRef<string>('') // 保存滑动方向,touchmove和touchend里都要用到
 
   const preTouchS = useRef<number>(0)
@@ -49,7 +53,9 @@ const SwipeAction: React.FC<SwipeActionProps> = (props) => {
       const contentDom = contentDomRef.current
       const startX = touchStartX.current // 触碰开始
       const currentX = e.touches[0].pageX //  实时位置
-      const btnWidth = btnDomRef.current.offsetWidth // 按钮宽度 即滑动的最大距离
+      const btnWidth = btnDomRef.current.offsetWidth // 按钮宽度
+
+      const maxLeftS = btnWidth + 15 // 左滑最大距离
 
       const touchS = currentX - startX
 
@@ -60,22 +66,24 @@ const SwipeAction: React.FC<SwipeActionProps> = (props) => {
       }
 
       if (
-        parseInt(contentDom.style.left, 10) > 5 &&
-        directionRef.current === 'right'
+        (directionRef.current === 'right' && getLeft(contentDom) > 5) ||
+        (directionRef.current === 'left' && Math.abs(touchS) >= maxLeftS)
       ) {
         return
       }
 
-      // 滑倒头了
-      if (
-        Math.abs(touchS) >= btnWidth * 1.5 &&
-        directionRef.current === 'left'
-      ) {
-        return
+      // 估算位移 = 起始left + touch偏移
+      let s = touchStartLeft.current + touchS
+
+      // 校正位移 防止滑动幅度过大
+      if (s < 0) {
+        s = Math.abs(s) > maxLeftS ? -maxLeftS : s
+      } else {
+        s = s > 5 ? 5 : s
       }
 
       // window.requestAnimationFrame(() => {
-      contentDom.style.left = `${touchS}px`
+      contentDom.style.left = `${s}px`
       // })
 
       preTouchS.current = touchS
@@ -88,6 +96,7 @@ const SwipeAction: React.FC<SwipeActionProps> = (props) => {
    * @param e
    */
   const touchstart = useCallback((e) => {
+    touchStartLeft.current = getLeft(contentDomRef.current)
     touchStartX.current = e.touches[0].pageX
   }, [])
 
