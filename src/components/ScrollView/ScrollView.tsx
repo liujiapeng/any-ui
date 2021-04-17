@@ -2,7 +2,8 @@ import React, { useEffect, useRef } from 'react'
 
 export interface IProps {
   pullRefreshRender: React.ReactNode
-  onRefreshCb: () => Promise<any>
+  onRefreshCb: () => Promise<void> // 刷新回调，在用户调用resolve/reject后执行
+  scrollIntoView: string // 滑动至id为scrollIntoView的节点
 }
 
 const touchParams = {
@@ -11,12 +12,46 @@ const touchParams = {
   preTouchS: 0, // 上一次坐标
 }
 const ScrollView: React.FC<IProps> = (props) => {
-  const { pullRefreshRender, onRefreshCb, children } = props
+  const {
+    pullRefreshRender,
+    onRefreshCb,
+    scrollIntoView = '',
+    children,
+  } = props
   const wrapRef = useRef<HTMLDivElement>()
   const refreshContentRef = useRef<HTMLDivElement>()
   const directionRef = useRef<string>('')
 
   const getTop = (dom: HTMLElement) => parseInt(dom.style.top, 10)
+
+  useEffect(() => {
+    try {
+      const dom = document.getElementById(scrollIntoView)
+
+      if (typeof scrollIntoView !== 'string') {
+        throw new Error('scrollInfoView must be string')
+      }
+
+      if (dom === null) {
+        return
+      }
+
+      const { offsetTop } = dom // 元素距离父元素顶部的高度
+
+      wrapRef.current.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth',
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }, [scrollIntoView])
+
+  const reSet = () => {
+    const dom = wrapRef.current
+    dom.style.top = '0px'
+    touchParams.canTouch = true
+  }
 
   useEffect(() => {
     const dom = wrapRef.current
@@ -27,15 +62,15 @@ const ScrollView: React.FC<IProps> = (props) => {
       const direction = directionRef.current
       touchParams.canTouch = false
       if (direction === 'down') {
-        onRefreshCb().then(() => {
-          dom.style.top = '0px'
-          touchParams.canTouch = true
-        })
+        onRefreshCb()
+          .then(() => {
+            reSet()
+          })
+          .catch(() => {
+            reSet()
+          })
       } else if (direction === 'up') {
-        dom.style.top = '0px'
-        touchParams.canTouch = true
-      } else {
-        touchParams.canTouch = true
+        reSet()
       }
     })
     dom.addEventListener('touchmove', (e) => {
@@ -48,8 +83,6 @@ const ScrollView: React.FC<IProps> = (props) => {
       const { startY, preTouchS } = touchParams
 
       const touchS = currentY - startY
-
-      console.log(touchS)
 
       if (touchS - preTouchS > 0) {
         directionRef.current = 'down'
