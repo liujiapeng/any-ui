@@ -113,5 +113,7 @@ module.exports = {
     'jsx-a11y/click-events-have-key-events': 0,
 
     'no-console': 0,
+
+    camelcase: 0,
   },
 }
