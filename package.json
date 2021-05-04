@@ -31,9 +31,13 @@
     }
   },
   "lint-staged": {
-    "*./src/**/*.{js,ts,json,css,less,md}": [
+    "src/**/*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "git add"
+    ],
+    "src/**/*.{less,css,scss,json}": [
       "prettier --write",
-      "yarn lint"
+      "git add"
     ]
   },
   "dependencies": {
