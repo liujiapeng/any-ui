@@ -68,23 +68,25 @@ module.exports = {
       { ts: 'never', tsx: 'never', json: 'ignorePackages', js: 'never' },
     ],
 
-    // 未使用的变量名
-    'no-unused-vars': [
-      1,
-      {
-        vars: 'all',
-        args: 'after-used',
-        ignoreRestSiblings: true,
-        varsIgnorePattern: '^_',
-        argsIgnorePattern: '^_|^err|^ev', // _xxx, err, error, ev, event
-      },
-    ],
+    // // 未使用的变量名
+    // 'no-unused-vars': [
+    //   1,
+    //   {
+    //     vars: 'all',
+    //     args: 'after-used',
+    //     ignoreRestSiblings: true,
+    //     varsIgnorePattern: '^_',
+    //     argsIgnorePattern: '^_|^err|^ev', // _xxx, err, error, ev, event
+    //   },
+    // ],
 
     // 避免import React却没有显示调用的错误
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
 
     'no-useless-escape': 2,
+
+    'no-shadow': 0,
 
     'react/prop-types': 0,
 
@@ -95,6 +97,8 @@ module.exports = {
     'react/display-name': 0,
 
     '@typescript-eslint/no-empty-function': 'off',
+
+    '@typescript-eslint/no-unused-vars': 1,
 
     'react/jsx-filename-extension': [
       2,
