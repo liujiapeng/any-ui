@@ -1,0 +1,29 @@
+.wrap {
+  display: inline-block;
+  padding: 20px;
+}
+
+.viewport {
+  display: inline-block;
+  overflow: hidden;
+  background: #fff;
+
+  .col {
+    position: relative;
+    top: 0%;
+    transition: top 0.5s;
+
+    &-i {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+      font-weight: bold;
+      font-size: 25px;
+      // padding: 10px;
+      // margin: 0 10px;
+      // color: goldenrod;
+      // background: coral;
+    }
+  }
+}
