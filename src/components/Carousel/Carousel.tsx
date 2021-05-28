@@ -38,6 +38,36 @@ const Carousel: React.FC<IProps> = (props) => {
     end: 0,
   })
 
+  const slideDuration = 0.3 // 整张滑动时的时间
+  const touchSlideDuration = 0.1 // 触摸滑动的时间
+
+  const autoRunTimer = useRef(null)
+
+  const touchStartLeft = useRef<number>(0)
+  const preTouchS = useRef<number>(0)
+
+  const [translateX, setTranslateX] = useState('-100%')
+  const [transitionDuration, setTransitionDuration] = useState(slideDuration)
+
+  const move = useCallback(
+    (translateX: string, duration: number | null = null) => {
+      if (duration !== null) {
+        setTransitionDuration(duration)
+      }
+      setTranslateX(translateX)
+    },
+    []
+  )
+
+  /**
+   *  获取translate3d中的x值
+   */
+  const getTranslateX = useCallback((dom) => {
+    const str = dom.style.transform
+    const reg = /\(.*\)/g
+    const y = str.match(reg)[0].match(/(?<=\()[^,]*(?=,)/)[0]
+    return parseInt(y || '0px', 10)
+  }, [])
   useEffect(() => {
     // 初始化参数
     initParams.current.max = imgList.length
@@ -49,94 +79,134 @@ const Carousel: React.FC<IProps> = (props) => {
     setList(temp)
   }, [imgList])
 
-  const leftMove = (offset: number) => {
-    const dom = wrapRef.current
-    const left = parseInt(dom.style.left || '0', 10)
-    let newLeft = ''
-    if (left > 0) {
-      newLeft = `${Math.floor(left / 100) * 100 - 100 * offset}%`
-    } else {
-      newLeft = `${Math.ceil(left / 100) * 100 - 100 * offset}%`
-    }
-    dom.style.transitionDuration = '0.3s'
-    dom.style.left = newLeft
-    initParams.current.i += 1 * offset
-    setCurIndex(initParams.current.i)
+  const translate = useCallback(
+    (direction: 'right' | 'left', offset: number, type: string) => {
+      if (type !== 'auto') {
+        clearInterval(autoRunTimer.current)
+      }
+      const dom = wrapRef.current
+      const left = getTranslateX(dom)
+      let newTranslateX = ''
+      if (direction === 'right') {
+        if (left > 0) {
+          newTranslateX = `${Math.floor(left / 100) * 100 + 100 * offset}%`
+        } else {
+          newTranslateX = `${Math.floor(left / 100) * 100 + 100 * offset}%`
+        }
+        initParams.current.i -= 1 * offset
+      } else if (direction === 'left') {
+        if (left > 0) {
+          newTranslateX = `${Math.floor(left / 100) * 100 - 100 * offset}%`
+        } else {
+          newTranslateX = `${Math.ceil(left / 100) * 100 - 100 * offset}%`
+        }
+        initParams.current.i += 1 * offset
+      }
 
-    if (initParams.current.i === initParams.current.max + 1) {
-      initParams.current.i = 1 * offset
       setCurIndex(initParams.current.i)
-      setTimeout(() => {
-        dom.style.transitionDuration = '0s'
-        dom.style.left = '-100%'
-      }, 300)
-    }
-  }
-  const rightMove = (offset: number) => {
-    const dom = wrapRef.current
-    const left = parseInt(dom.style.left || '0', 10)
-    let newLeft = ''
-    if (left > 0) {
-      newLeft = `${Math.floor(left / 100) * 100 + 100 * offset}%`
-    } else {
-      newLeft = `${Math.floor(left / 100) * 100 + 100 * offset}%`
-    }
+      move(newTranslateX, slideDuration)
 
-    dom.style.transitionDuration = '0.3s'
-    dom.style.left = newLeft
-    initParams.current.i -= 1 * offset
-    setCurIndex(initParams.current.i)
-
-    if (initParams.current.i === 0) {
-      initParams.current.i = initParams.current.max
-      setCurIndex(initParams.current.i)
-      setTimeout(() => {
-        dom.style.transitionDuration = '0s'
-        dom.style.left = `${-(initParams.current.max * 100)}%`
-      }, 300)
-    }
-  }
+      if (
+        direction === 'left' &&
+        initParams.current.i === initParams.current.max + 1
+      ) {
+        initParams.current.i = 1 * offset
+        setCurIndex(initParams.current.i)
+        setTimeout(() => {
+          move('-100%', 0)
+        }, 300)
+      } else if (direction === 'right' && initParams.current.i === 0) {
+        initParams.current.i = initParams.current.max
+        setCurIndex(initParams.current.i)
+        setTimeout(() => {
+          move(`-${initParams.current.max * 100}%`, 0)
+        }, 300)
+      }
+      if (type !== 'auto') {
+        autoRunTimer.current = setInterval(
+          () => translate('left', 1, 'auto'),
+          during
+        )
+      }
+    },
+    [during, getTranslateX, move]
+  )
 
   /**
    * 自动播放
    */
   useEffect(() => {
-    let timer = null
     if (autoPlay) {
-      timer = setInterval(() => leftMove(1), during)
+      autoRunTimer.current = setInterval(
+        () => translate('left', 1, 'auto'),
+        during
+      )
     }
-    return () => clearInterval(timer)
-  }, [autoPlay, during])
+    return () => clearInterval(autoRunTimer.current)
+  }, [autoPlay, during, translate])
+
+  /**
+   * touch start
+   */
+  const touchStart = useCallback(
+    (e) => {
+      const dom = wrapRef.current
+      setTransitionDuration(touchSlideDuration)
+      clearInterval(autoRunTimer.current)
+      touchStartLeft.current = getTranslateX(dom)
+      touchParams.current.startX = e.touches[0].pageX
+    },
+    [getTranslateX]
+  )
+
+  /**
+   * touch move
+   */
+  const touchMove = useCallback(
+    (e) => {
+      const dom = wrapRef.current
+      touchParams.current.currentX = e.touches[0].pageX
+      const offset = touchParams.current.currentX - touchParams.current.startX
+
+      //  新的translate值 = 偏移距离占元素宽度的百分比 + 原来的left百分比
+      const translateX = `${
+        (offset / dom.clientWidth) * 100 + touchStartLeft.current
+      }%`
+
+      move(translateX)
+      preTouchS.current = offset
+    },
+    [move]
+  )
+
+  /**
+   * touch end
+   */
+  const touchEnd = useCallback(() => {
+    setTransitionDuration(slideDuration)
+    const offset = touchParams.current.currentX - touchParams.current.startX
+
+    if (offset > 0) {
+      translate('right', 1, 'slider')
+    } else {
+      translate('left', 1, 'slider')
+    }
+  }, [translate])
 
   /**
    * 添加触摸事件
    */
   useEffect(() => {
     const dom = wrapRef.current
-    dom.addEventListener('touchstart', (e) => {
-      // 基础开始
-      touchParams.current.startX = e.touches[0].pageX
-    })
-    dom.addEventListener('touchmove', (e) => {
-      // 基础开始
-      touchParams.current.currentX = e.touches[0].pageX
-      const offset = touchParams.current.currentX - touchParams.current.startX
-
-      dom.style.left =
-        offset > 0
-          ? `${parseInt(dom.style.left, 10) + 1}%`
-          : `${parseInt(dom.style.left, 10) - 1}%`
-    })
-    dom.addEventListener('touchend', (e) => {
-      const offset = touchParams.current.currentX - touchParams.current.startX
-
-      if (offset > 0) {
-        rightMove(1)
-      } else {
-        leftMove(1)
-      }
-    })
-  }, [])
+    dom.addEventListener('touchstart', touchStart)
+    dom.addEventListener('touchmove', touchMove)
+    dom.addEventListener('touchend', touchEnd)
+    return () => {
+      dom.removeEventListener('touchstart', touchStart)
+      dom.removeEventListener('touchmove', touchMove)
+      dom.removeEventListener('touchend', touchEnd)
+    }
+  }, [touchEnd, touchMove, touchStart])
 
   /**
    * 点击圆点点
@@ -146,25 +216,32 @@ const Carousel: React.FC<IProps> = (props) => {
     (index: number) => {
       const i = index + 1
       if (i > curIndex) {
-        leftMove(i - curIndex)
+        translate('left', i - curIndex, 'point')
       } else if (i < curIndex) {
-        rightMove(curIndex - i)
+        translate('right', curIndex - i, 'point')
       }
     },
-    [curIndex]
+    [curIndex, translate]
   )
   return (
     <div className="carousel-container">
       {/* 箭头 */}
       {showArray && (
         <div className="carousel-array-row">
-          <LeftArray onClick={() => rightMove(1)} />
-          <RightArray onClick={() => leftMove(1)} />
+          <LeftArray onClick={() => translate('right', 1, 'array')} />
+          <RightArray onClick={() => translate('left', 1, 'array')} />
         </div>
       )}
 
       {/* 图 */}
-      <div ref={wrapRef} className="carousel-wrap" style={{ left: '-100%' }}>
+      <div
+        ref={wrapRef}
+        className="carousel-wrap"
+        style={{
+          transform: `translate3d(${translateX},0px,0px)`,
+          transitionDuration: `${transitionDuration}s`,
+        }}
+      >
         {list.map((item, i) => (
           // eslint-disable-next-line react/no-array-index-key
           <div key={item + i} className="block">

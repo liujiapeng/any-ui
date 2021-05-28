@@ -42,3 +42,8 @@
     }
   }
 }
+
+:root {
+  --theme-primary: #00bc70;
+  --button-theme: var(--theme-primary);
+}
