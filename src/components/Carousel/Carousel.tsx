@@ -125,11 +125,10 @@ const Carousel: React.FC<IProps> = (props) => {
       touchParams.current.currentX = e.touches[0].pageX
       const offset = touchParams.current.currentX - touchParams.current.startX
 
-      dom.style.left =
-        offset - preTouchS.current > 0  // 比较本次位置和上次位置，判断移动方向
-          ? `${parseInt(dom.style.left, 10) + 1}%`
-          : `${parseInt(dom.style.left, 10) - 1}%`
+      //  新的left值 = 偏移距离占元素宽度的百分比 + 原来的left百分比
+      const left = `${(offset / dom.clientWidth * 100 + touchStartLeft.current )}%` 
       
+      dom.style.left = left
       preTouchS.current = offset // 记录本次的位置
     })
     dom.addEventListener('touchend', (e) => {
