@@ -37,6 +37,9 @@ const Carousel: React.FC<IProps> = (props) => {
     currentX: 0,
     end: 0,
   })
+  
+  const touchStartLeft = useRef<number>(0)
+  const preTouchS = useRef<number>(0)
 
   useEffect(() => {
     // 初始化参数
@@ -114,18 +117,20 @@ const Carousel: React.FC<IProps> = (props) => {
   useEffect(() => {
     const dom = wrapRef.current
     dom.addEventListener('touchstart', (e) => {
-      // 基础开始
+      touchStartLeft.current = parseInt(dom.style.left || '0px',10)
       touchParams.current.startX = e.touches[0].pageX
     })
     dom.addEventListener('touchmove', (e) => {
-      // 基础开始
+
       touchParams.current.currentX = e.touches[0].pageX
       const offset = touchParams.current.currentX - touchParams.current.startX
 
       dom.style.left =
-        offset > 0
+        offset - preTouchS.current > 0  // 比较本次位置和上次位置，判断移动方向
           ? `${parseInt(dom.style.left, 10) + 1}%`
           : `${parseInt(dom.style.left, 10) - 1}%`
+      
+      preTouchS.current = offset // 记录本次的位置
     })
     dom.addEventListener('touchend', (e) => {
       const offset = touchParams.current.currentX - touchParams.current.startX
