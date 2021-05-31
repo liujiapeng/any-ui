@@ -1,0 +1,37 @@
+.square {
+  box-sizing: border-box;
+  background-color: gray;
+  // border: 1px white solid;
+}
+.app {
+  height: 100%;
+}
+.squares {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  position: relative;
+}
+.container {
+  width: 330px;
+  height: 330px;
+  position: relative;
+}
+
+.active {
+  opacity: 0.5;
+}
+.choujiang-button {
+  font-size: 16px;
+  border-radius: 50%;
+  background-color: blue;
+  color: white;
+  z-index: 999;
+  text-align: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
