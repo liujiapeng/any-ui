@@ -184,13 +184,22 @@ const Carousel: React.FC<IProps> = (props) => {
    */
   const touchEnd = useCallback(() => {
     setTransitionDuration(slideDuration)
-    const offset = touchParams.current.currentX - touchParams.current.startX
+    const { currentX } = touchParams.current
+    const { startX } = touchParams.current
+    const isMove = currentX !== 0 // 没有移动currentX为0
 
-    if (offset > 0) {
+    if (!isMove) {
+      return
+    }
+
+    const offset = currentX - startX
+
+    if (isMove && offset > 0) {
       translate('right', 1, 'slider')
     } else {
       translate('left', 1, 'slider')
     }
+    touchParams.current.currentX = 0
   }, [translate])
 
   /**
