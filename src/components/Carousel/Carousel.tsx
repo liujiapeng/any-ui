@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { LeftArray, RightArray } from './Array'
-import './index.less'
+
 // 暂不支持自定义节点
 export interface IProps {
   imgList: Array<string>
