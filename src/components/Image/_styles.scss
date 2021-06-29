@@ -1,0 +1,11 @@
+.image-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.image-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: gray;
+}
