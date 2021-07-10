@@ -11,7 +11,7 @@
   .col {
     position: relative;
     top: 0%;
-    transition: top 0.5s;
+    transition: transform 0.5s;
 
     &-i {
       display: flex;
@@ -20,10 +20,6 @@
       height: 50px;
       font-weight: bold;
       font-size: 25px;
-      // padding: 10px;
-      // margin: 0 10px;
-      // color: goldenrod;
-      // background: coral;
     }
   }
 }

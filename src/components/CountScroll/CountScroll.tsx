@@ -1,30 +1,55 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useMemo, useRef } from 'react'
 
-const Col: React.FC<{ num: number }> = React.memo(({ num }) => {
-  const arr = useMemo(() => [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [])
-  const top = useMemo(() => ` -${num * 100}%`, [num])
-  const colRef = useRef<HTMLDivElement>()
-  const [viewportHeight, setviewportHeight] = useState(0)
-  useEffect(() => {
-    const height = colRef.current.clientHeight / arr.length
-    setviewportHeight(height)
-  }, [arr.length])
-  return (
-    <div className="viewport" style={{ height: viewportHeight }}>
-      <div className="col" ref={colRef} style={{ top }}>
-        {arr.map((i) => (
-          <div key={i} className="col-i">
-            {i}
-          </div>
-        ))}
+const arr = ['.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+
+const arrLen = arr.length
+
+const Col: React.FC<{ val: string; height: number }> = React.memo(
+  ({ val, height }) => {
+    /**
+     * 垂直偏移
+     */
+    const Y = useMemo(
+      () =>
+        val === '.' ? '-0%' : `-${(Number(val) + 1) * ((10 / arrLen) * 10)}%`,
+      [val]
+    )
+
+    const colRef = useRef<HTMLDivElement>()
+
+    return (
+      <div className="viewport" style={{ height: `${height}px` }}>
+        <div
+          className="col"
+          ref={colRef}
+          style={{ transform: `translate3d(0px, ${Y},0px)` }}
+        >
+          {arr.map((cell) => (
+            <div style={{ height: `${height}px` }} key={cell} className="col-i">
+              {cell}
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-  )
-})
+    )
+  }
+)
 
-const CountScroll: React.FC<{ nums: number; className: string }> = ({
+interface IProps {
+  /** 数值 */
+  nums: string
+
+  /** 类名 */
+  className?: string
+
+  /** 高度 */
+  height?: number
+}
+
+const CountScroll: React.FC<IProps> = ({
   nums,
-  className,
+  className = '',
+  height = 20,
 }) => {
   const arr = useMemo(
     () =>
@@ -40,7 +65,7 @@ const CountScroll: React.FC<{ nums: number; className: string }> = ({
   return (
     <div className={`wrap ${className}`}>
       {arr.map((item) => (
-        <Col key={item.key} num={Number(item.val)} />
+        <Col height={height} key={item.key} val={item.val} />
       ))}
     </div>
   )
